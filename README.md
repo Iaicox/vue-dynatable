@@ -1,6 +1,6 @@
-# dynamic-table
+# vue-dynatable
 
-## Project setup
+<!-- ## Project setup
 ```
 npm install
 ```
@@ -21,4 +21,4 @@ npm run test:unit
 ```
 
 ### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+See [Configuration Reference](https://cli.vuejs.org/config/). -->

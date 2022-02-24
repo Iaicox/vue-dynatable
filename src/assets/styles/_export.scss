@@ -1,0 +1,30 @@
+@import '_variables';
+
+:export {
+  primaryColor: $primaryColor;
+  negativeColor: $negativeColor;
+  secondaryColor: $secondaryColor;
+  disableColorBack: $disableColorBack;
+  disableColorText: $disableColorText;
+  borderRadius: $borderRadius;
+  tooltipFontSize: $tooltipFontSize;
+  tooltipColor: $tooltipColor;
+  tooltipBack: $tooltipBack;
+  tooltipPadding: $tooltipPadding;
+  tooltipRadius: $tooltipRadius;
+  paginationMargin: $paginationMargin;
+  paginationHeight: $paginationHeight;
+  paginationRadius: $paginationRadius;
+  paginationColor: $paginationColor;
+  borderColor: $borderColor;
+  hoverBGColor: $hoverBGColor;
+  regularCellBGColor: $regularCellBGColor;
+  headerCellBGColor: $headerCellBGColor;
+  tableTextColor: $tableTextColor;
+  cellMinWidth: $cellMinWidth;
+  cellHeight: $cellHeight;
+  cellPaddingX: $cellPaddingX;
+  cellPaddingY: $cellPaddingY;
+  borderWidth: $borderWidth;
+  tableFontSize: $tableFontSize;
+}

@@ -1,7 +1,6 @@
 //  Styles
 import Icons from '@/assets/icons'
-import '@/assets/styles/index.scss'
-import cssVars from '@/assets/styles/_variables.scss'
+import cssVars from '@/assets/styles/_export.scss'
 //  Helpers
 import { FixChildrenOrder, getSortDirection, toNumber, isObjEmpty, calcWidth, uniteObj } from '@/middleware/helpers'
 //  Vue

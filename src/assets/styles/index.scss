@@ -1,16 +1,12 @@
 //  Variables
-@import '@/assets/styles/_variables';
+@import '_variables';
 //  Table styles
-@import '@/assets/styles/_table';
+@import '_table';
 //  Filter styles
-@import '@/assets/styles/filter';
+@import '_filter';
 //  Pagination styles
-@import '@/assets/styles/_pagination';
+@import '_pagination';
 //  Loader styles
-@import '@/assets/styles/_loader';
+@import '_loader';
 //  Tooltip styles
-@import '@/assets/styles/_tooltip';
-
-.test {
-  background: hotpink;
-}
+@import '_tooltip';

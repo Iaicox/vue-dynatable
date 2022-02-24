@@ -1,3 +1,5 @@
+@use "sass:math";
+
 .select {
   width: 100%;
   display: inline-block;
@@ -129,7 +131,7 @@
     box-sizing: inherit;
     text-align: center;
     border: 1px solid $borderColor;
-    border-radius: $borderRadius / 2;
+    border-radius: math.div($borderRadius, 2);
     color: $paginationColor;
     background-color: $secondaryColor;
     cursor: pointer;

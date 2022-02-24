@@ -260,6 +260,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '@/assets/styles/index.scss';
+
 body {
   padding: 0;
   margin: 0;
@@ -274,5 +276,9 @@ body {
   > .dt {
     width: 60%;
   }
+}
+
+.test {
+  background: hotpink;
 }
 </style>

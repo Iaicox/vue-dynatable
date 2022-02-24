@@ -1,52 +1,52 @@
 {
   "name": "vue-dynatable",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "This package allows you to manage big data in table. You could set the settings what table would do: dragging cols, resize cols, pin cols, filter and sort data. All the cells could be replaced by named slot.",
-  "main": "build/index.js",
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "babel ./src -d ./lib",
-    "prepublishOnly": "npm run build",
-    "lint": "eslint ./src",
-    "test:unit": "vue-cli-service test:unit"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Iacox/vue-dynatable.git"
-  },
-  "keywords": [
-    "big data table",
-    "dynamic table",
-    "table on vue",
-    "vue table"
-  ],
   "author": {
     "name": "Safin Ilia",
     "email": "ilyshk999@gmail.com",
     "url": "https://github.com/Iacox"
   },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Iacox/vue-dynatable/issues"
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "predeploy": "vue-cli-service build --mode demo",
+    "build": "vue-cli-service build --target lib --name vue-dynatable src/lib.js",
+    "lint": "eslint ./src",
+    "test:unit": "vue-cli-service test:unit",
+    "prepublishOnly": "npm run build"
   },
-  "homepage": "https://github.com/Iacox/vue-dynatable#readme",
-  "dependencies": {
-    "core-js": "^3.6.5",
-    "vue": "^2.6.11"
-  },
+  "main": "./lib/vue-dynatable.common.js",
   "devDependencies": {
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.5",
+    "@babel/preset-env": "^7.16.11",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-unit-jest": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "@vue/test-utils": "^1.0.3",
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
+    "core-js": "^3.21.1",
     "eslint": "^8.9.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-vue": "^8.5.0",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
+    "vue": "^2.6.14",
     "vue-template-compiler": "^2.6.11"
+  },
+  "bugs": {
+    "url": "https://github.com/Iacox/vue-dynatable/issues"
+  },
+  "homepage": "https://github.com/Iacox/vue-dynatable#readme",
+  "keywords": [
+    "big data table",
+    "dynamic table",
+    "table on vue",
+    "vue table"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Iacox/vue-dynatable.git"
   }
 }

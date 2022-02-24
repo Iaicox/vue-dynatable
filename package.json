@@ -1,25 +1,33 @@
 {
   "name": "vue-dynatable",
   "version": "0.1.0",
-  "description": "This package allow you to manage big data in table. You could set the settings what table would do: dragging cols, resize cols, pin cols, filter and sort data. All the cells could be replaced by named slot.",
+  "description": "This package allows you to manage big data in table. You could set the settings what table would do: dragging cols, resize cols, pin cols, filter and sort data. All the cells could be replaced by named slot.",
   "main": "build/index.js",
-  "keywords": [
-    "bigData",
-    "dynamic table",
-    "table on vue",
-    "table"
-  ],
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "babel ./src -d ./lib",
     "test:unit": "vue-cli-service test:unit"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Iacox/vue-dynatable.git"
+  },
+  "keywords": [
+    "big data table",
+    "dynamic table",
+    "table on vue",
+    "vue table"
+  ],
   "author": {
     "name": "Safin Ilia",
     "email": "ilyshk999@gmail.com",
     "url": "https://github.com/Iacox"
   },
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Iacox/vue-dynatable/issues"
+  },
+  "homepage": "https://github.com/Iacox/vue-dynatable#readme",
   "dependencies": {
     "core-js": "^3.6.5",
     "vue": "^2.6.11"

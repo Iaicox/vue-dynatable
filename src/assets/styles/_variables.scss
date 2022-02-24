@@ -1,0 +1,64 @@
+$primaryColor: #67b268;
+$negativeColor: #f44336;
+$secondaryColor: #ffffff;
+$disableColorBack: #e0e0e0;
+$disableColorText: #999999;
+$borderRadius: 4px;
+
+//  Tooltip
+$tooltipFontSize: 1rem;
+$tooltipColor: $secondaryColor;
+$tooltipBack: #323232;
+$tooltipPadding: 10px 8px;
+$tooltipRadius: 2px;
+
+//  Pagination
+$paginationMargin: 10px;
+$paginationHeight: 30px;
+$paginationRadius: 2px;
+$paginationColor: #444;
+
+//  Table
+//  -colors
+$borderColor: #d7d7d7;
+$hoverBGColor: #b4ddb5;
+$regularCellBGColor: #f2f2f2;
+$headerCellBGColor: #c0e0c1;
+$tableTextColor: #000000;
+
+$cellMinWidth: 45px;
+$cellHeight: 30px;
+$cellPaddingX: 3px;
+$cellPaddingY: 0;
+$borderWidth: 1px;
+
+$tableFontSize: .8rem;
+
+:export {
+  primaryColor: $primaryColor;
+  negativeColor: $negativeColor;
+  secondaryColor: $secondaryColor;
+  disableColorBack: $disableColorBack;
+  disableColorText: $disableColorText;
+  borderRadius: $borderRadius;
+  tooltipFontSize: $tooltipFontSize;
+  tooltipColor: $tooltipColor;
+  tooltipBack: $tooltipBack;
+  tooltipPadding: $tooltipPadding;
+  tooltipRadius: $tooltipRadius;
+  paginationMargin: $paginationMargin;
+  paginationHeight: $paginationHeight;
+  paginationRadius: $paginationRadius;
+  paginationColor: $paginationColor;
+  borderColor: $borderColor;
+  hoverBGColor: $hoverBGColor;
+  regularCellBGColor: $regularCellBGColor;
+  headerCellBGColor: $headerCellBGColor;
+  tableTextColor: $tableTextColor;
+  cellMinWidth: $cellMinWidth;
+  cellHeight: $cellHeight;
+  cellPaddingX: $cellPaddingX;
+  cellPaddingY: $cellPaddingY;
+  borderWidth: $borderWidth;
+  tableFontSize: $tableFontSize;
+}

@@ -1,0 +1,78 @@
+.radio-group {
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    font-size: 14px;
+    line-height: 1;
+    color: $primaryColor;
+  }
+
+  [type="radio"] {
+    overflow: visible;
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
+
+    &:checked {
+      &+span {
+
+        &::before,
+        &::after {
+          border: 2px solid $primaryColor;
+        }
+
+        &::after {
+          -webkit-transform: scale(0.5);
+          transform: scale(0.5);
+          background-color: $primaryColor;
+        }
+      }
+    }
+
+    +span {
+      position: relative;
+      padding-left: 25px;
+      margin-right: 15px;
+      cursor: pointer;
+      display: inline-block;
+      height: 25px;
+      line-height: 25px;
+      font-size: 1rem;
+      -webkit-transition: .28s ease;
+      transition: .28s ease;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        margin: 4px;
+        width: 16px;
+        height: 16px;
+        z-index: 0;
+        -webkit-transition: .28s ease;
+        transition: .28s ease;
+        border-radius: 50%;
+        box-sizing: border-box;
+      }
+
+      &::before {
+        border: 2px solid $disableColorText;
+      }
+
+      &::after {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+      }
+    }
+  }
+}

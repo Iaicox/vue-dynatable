@@ -1,0 +1,38 @@
+.loader {
+  &--wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 0;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &--content {
+    text-align: center;
+    font-family: 'Nunito', sans-serif;
+    font-size: 4.6875em;
+    color: transparent;
+    letter-spacing: 0.01em;
+    margin: 0;
+    padding: 0;
+
+    span {
+      text-shadow: 0 0 2px opacify($primaryColor, 0.9), 0 15px 25px opacify($tableTextColor, 0.3), 0 -2px 3px opacify($tableTextColor, 0.1), 0 -5px 10px opacify($primaryColor, 0.5), 0 5px 10px opacify($tableTextColor, 0.3), 0 3px 4px opacify($primaryColor, 0.2), 0 0 20px opacify($primaryColor, 0.45);
+      animation: letters 0.85s ease-in-out infinite alternate;
+      animation-delay: 0;
+
+      @for $i from 2 through 30 {
+        &:nth-child(#{$i}) {
+          animation-delay: 0.15s * ($i - 1);
+        }
+      }
+    }
+  }
+}
+
+@keyframes letters {
+  to {
+    text-shadow: 0 0 2px opacify($secondaryColor, 0.2), 0 0 3px opacify($tableTextColor, 0.02), 0 0 0 opacify($tableTextColor, 0), 0 0 0 opacify($secondaryColor, 0), 0 0 0 opacify($tableTextColor, 0), 0 0 0 opacify($secondaryColor, 0), 0 0 0 opacify($secondaryColor, 0);
+  }
+}

@@ -1,0 +1,79 @@
+.switcher {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  .header {
+    font-size: 14px;
+    line-height: 1;
+    color: $primaryColor;
+  }
+
+  label {
+    cursor: pointer;
+    color: $tableTextColor;
+  }
+
+  input[type=checkbox] {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+
+    &:checked {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+
+      &+.lever {
+        background-color: $headerCellBGColor;
+
+        &::after {
+          left: 18px;
+          background-color: $primaryColor;
+        }
+      }
+    }
+  }
+
+  .lever {
+    content: "";
+    display: inline-block;
+    position: relative;
+    width: 36px;
+    height: 14px;
+    background-color: rgba(0, 0, 0, 0.38);
+    border-radius: 15px;
+    -webkit-transition: background 0.3s ease;
+    transition: background 0.3s ease;
+    vertical-align: middle;
+    margin: 0 8px;
+
+    &::before,
+    &::after {
+      box-sizing: border-box;
+      content: "";
+      position: absolute;
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      left: 0;
+      top: -3px;
+      -webkit-transition: left 0.3s ease, background .3s ease, -webkit-box-shadow 0.1s ease, -webkit-transform .1s ease;
+      transition: left 0.3s ease, background .3s ease, -webkit-box-shadow 0.1s ease, -webkit-transform .1s ease;
+      transition: left 0.3s ease, background .3s ease, box-shadow 0.1s ease, transform .1s ease;
+      transition: left 0.3s ease, background .3s ease, box-shadow 0.1s ease, transform .1s ease, -webkit-box-shadow 0.1s ease, -webkit-transform .1s ease;
+    }
+
+    &::after {
+      background-color: $secondaryColor;
+      -webkit-box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+      box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+    }
+  }
+}

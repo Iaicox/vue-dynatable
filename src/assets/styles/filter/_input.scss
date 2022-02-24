@@ -1,0 +1,115 @@
+.text-field {
+  position: relative;
+  display: flex;
+  margin-top: 15px;
+  padding: 8px 5px;
+  border-radius: $borderRadius;
+  border: 1px solid $borderColor;
+  background: $secondaryColor;
+  font-size: 14px;
+  line-height: 1;
+  color: $tableTextColor;
+  transition: all 0.3s ease;
+  box-shadow: none;
+  box-sizing: border-box;
+  cursor: text;
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    .chip {
+      padding: 4px 6px 4px 10px;
+      margin: 3px 0;
+      margin-right: 10px;
+      border-radius: 99rem;
+      background-color: $primaryColor;
+      color: $tableTextColor;
+      cursor: pointer;
+      display: flex;
+      flex-wrap: nowrap;
+
+      img {
+        height: 12px;
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-left: 5px;
+      }
+    }
+  }
+
+  input {
+    outline: 0;
+    border: 0;
+    flex-grow: 1;
+    flex-shrink: 0;
+
+    &:-internal-autofill-selected {
+      appearance: none;
+      background-color: $secondaryColor !important;
+      color: $tableTextColor !important;
+    }
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:focus {
+      -webkit-text-fill-color: $tableTextColor;
+      -webkit-box-shadow: 0 0 0px 1000px $secondaryColor inset;
+      box-shadow: 0 0 0px 1000px $secondaryColor inset;
+      transition: background-color 600000s 0s, color 600000s 0s;
+    }
+
+    &[type="search"] {
+      -webkit-appearance: textfield;
+      outline-offset: -2px;
+    }
+
+    &[type="search"]::-webkit-search-cancel-button,
+    &[type="search"]::-webkit-search-decoration {
+      -webkit-appearance: none;
+    }
+
+    &[type="text"]::-ms-clear,
+    &[type="text"]::-ms-reveal {
+      display: none;
+    }
+
+    &::placeholder,
+    &::-webkit-input-placeholder,
+    &::-moz-placeholder,
+    &:-moz-placeholde,
+    &:-ms-input-placeholde {
+      color: $disableColorText;
+    }
+  }
+
+  label {
+    position: absolute;
+    top: -15px;
+    left: 0;
+    color: $primaryColor;
+  }
+
+  img {
+    margin-left: auto;
+    flex-grow: 0;
+    flex-shrink: 1;
+    cursor: pointer;
+    transition: .4s;
+  }
+
+  &.disabled {
+    pointer-events: none;
+    background: $disableColorBack;
+    color: $disableColorText;
+
+    input {
+      background: $disableColorBack;
+    }
+
+    label {
+      color: $borderColor;
+    }
+  }
+}

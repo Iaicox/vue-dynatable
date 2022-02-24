@@ -1,0 +1,22 @@
+.tooltip {
+  max-width: calc(100% - 4px);
+  min-height: 36px;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  overflow: hidden;
+  opacity: 0;
+  padding: $tooltipPadding;
+  border-radius: $tooltipRadius;
+  box-sizing: border-box;
+
+  font-size: $tooltipFontSize;
+  line-height: 120%;
+  text-align: center;
+
+  color: $tooltipColor;
+  background-color: $tooltipBack;
+  pointer-events: none;
+  z-index: 1000;
+}

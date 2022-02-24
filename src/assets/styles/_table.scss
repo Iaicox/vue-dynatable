@@ -1,0 +1,445 @@
+@mixin orderCells($height,
+  $border: 0,
+  $count: 5,
+) {
+  tr {
+    @for $i from 1 to $count {
+      &:nth-child(#{$i}) .dt--cell {
+        top: ($i - 1) * ($height + $borderWidth);
+      }
+    }
+  }
+}
+
+.dt {
+  &--container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  &--wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    border: $borderWidth solid $borderColor;
+  }
+
+  &--table {
+    width: max-content;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-variant: tabular-nums;
+  }
+
+
+  //	Styles for fixed rows
+  &--cell {
+    .sticky_row & {
+      position: sticky;
+      z-index: 10;
+    }
+
+    .sticky_row &__wrapper {
+      background-color: $hoverBGColor;
+      opacity: .99;
+      z-index: 1;
+    }
+
+    .sticky_row &::before {
+      content: '';
+      position: absolute;
+      background-color: $borderColor;
+      top: -$borderWidth;
+      left: -$borderWidth;
+      right: -$borderWidth;
+      bottom: -$borderWidth;
+    }
+  }
+
+  //	Styles for hoverable rows
+  .hoverable,
+  .hoverable_unit {
+    cursor: pointer;
+    transition: box-shadow opacity .25s;
+
+    &:hover {
+      box-shadow: 0 8px 17px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+    }
+  }
+
+  .hoverable:hover,
+  .active,
+  .checked {
+    background-color: $hoverBGColor;
+  }
+
+  //	Styles for text cells wrapping
+  .wrap_line {
+
+    &.dt--cell,
+    .dt--cell {
+      &__text {
+        position: static;
+        overflow: visible;
+        white-space: normal;
+        text-overflow: clip;
+        overflow-wrap: anywhere;
+        padding: 0;
+        // bottom: unset;
+        // z-index: 1;
+      }
+    }
+  }
+
+  .single_line {
+
+    &.dt--cell,
+    .dt--cell {
+      &__text {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+
+  &--row {
+
+    &.hoverable:hover,
+    &.active {
+      .hoverable_unit {
+        opacity: 1;
+      }
+    }
+
+    &.expand_on_hover {
+
+      &.single_line:hover,
+      &.single_line.active {
+        @extend .wrap_line
+      }
+
+      &:hover,
+      &.active {
+        .single_line {
+          @extend .wrap_line
+        }
+      }
+    }
+  }
+
+  &--cell {
+    height: $cellHeight;
+    min-width: $cellMinWidth;
+    padding: 0;
+    position: relative;
+    font-size: $tableFontSize;
+    line-height: 1.1;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    vertical-align: middle;
+    color: $tableTextColor;
+    border: $borderWidth solid $borderColor;
+    border-radius: 0;
+
+    &.bold {
+      font-weight: bold;
+    }
+
+    &__wrapper {
+      height: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &__prepend,
+    &__content,
+    &__append {
+      display: flex;
+      align-items: center;
+      padding: $cellPaddingY $cellPaddingX;
+    }
+
+    &__prepend,
+    &__append {
+      flex: 0 0 auto;
+      transition: .4s;
+    }
+
+    &__content {
+      flex-basis: min-content;
+      flex-grow: 1;
+      flex-shrink: 0;
+      align-self: stretch;
+      position: relative;
+
+      &.align-center {
+        justify-content: center;
+        text-align: center;
+
+        .dt--cell__text {
+          justify-content: center;
+          text-align: center;
+        }
+      }
+
+      &.align-left {
+        justify-content: flex-start;
+        text-align: left;
+
+        .dt--cell__text {
+          justify-content: flex-start;
+          text-align: left;
+        }
+      }
+
+      &.align-right {
+        justify-content: flex-end;
+        text-align: right;
+
+        .dt--cell__text {
+          justify-content: flex-end;
+          text-align: right;
+        }
+      }
+    }
+
+    &__text {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: $cellPaddingX;
+      right: $cellPaddingX;
+      display: flex;
+      align-items: center;
+    }
+
+    &__prepend.hoverable_unit,
+    &__append.hoverable_unit {
+      &:not(.showed) {
+        opacity: 0;
+      }
+    }
+
+    &:hover {
+      .hoverable_unit {
+        opacity: 1;
+      }
+
+      .dt--cell__prepend,
+      .dt--cell__append {
+        opacity: 1;
+      }
+
+      .cell--hover_btn {
+        z-index: 1;
+        opacity: 1;
+      }
+    }
+
+    .cell--hover_btn {
+      display: flex;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      color: $tableTextColor;
+      text-align: center;
+      background: $headerCellBGColor;
+      border: 0;
+      align-items: center;
+      justify-content: center;
+      transition: .4s;
+      z-index: -1;
+      opacity: 0;
+      cursor: pointer;
+    }
+  }
+
+  &--header {
+    &.sticky_row {
+      @include orderCells($cellHeight, $borderWidth, 10);
+    }
+
+    &.resizable {
+      cursor: col-resize;
+    }
+
+    .dt--cell {
+      &:not(.parent) {
+        .dt--cell__content {
+          opacity: .7;
+          transition: .4s;
+        }
+      }
+
+      &__text {
+        position: static;
+      }
+
+      &:hover {
+        .dt--cell__content {
+          opacity: 1;
+        }
+      }
+
+      &.active,
+      &.fixed,
+      &.sorted {
+
+        .dt--cell__append,
+        .dt--cell__prepend,
+        .dt--cell__content {
+          opacity: 1;
+        }
+      }
+    }
+
+    .dt--cell:not(.regular_cell) {
+      background-color: $headerCellBGColor;
+    }
+  }
+
+  &--footer {
+    &.sticky_row {
+      tr {
+        .dt--cell {
+          bottom: 0;
+
+          &::before {
+            bottom: -1px;
+          }
+        }
+      }
+    }
+
+    .dt--cell:not(.regular_cell) {
+      background-color: $regularCellBGColor;
+    }
+
+    .dt--cell:not(.regular_cell) .dt--cell__wrapper {
+      background-color: $regularCellBGColor;
+      opacity: .99;
+      z-index: 1;
+    }
+  }
+
+  .float-window {
+    position: absolute;
+    z-index: 11;
+    transition: .3s;
+    left: 50%;
+    top: 50%;
+
+    &.btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      aspect-ratio: 1;
+      background-color: $hoverBGColor;
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+      opacity: .75;
+
+      &:hover,
+      &:focus {
+        cursor: pointer;
+      }
+    }
+
+    &.window {
+      width: auto;
+      height: auto;
+      min-width: 50%;
+      min-height: 25%;
+      aspect-ratio: unset;
+      background-color: $secondaryColor;
+      border: 1px solid $primaryColor;
+      border-radius: $borderRadius;
+      opacity: 1;
+    }
+
+    &.bottom {
+      bottom: 25px;
+      top: unset;
+      left: unset;
+
+      &-right {
+        @extend .bottom;
+        right: 25px;
+      }
+
+      &-left {
+        @extend .bottom;
+        left: 25px;
+      }
+    }
+
+    &.top {
+      top: 25px;
+      left: unset;
+
+      &-right {
+        @extend .top;
+        right: 25px;
+      }
+
+      &-left {
+        @extend .top;
+        left: 25px;
+      }
+    }
+
+    &.left {
+      left: 25px;
+    }
+
+    &.right {
+      right: 25px;
+    }
+
+    &:hover,
+    &:focus,
+    &.active {
+      opacity: 1;
+      animation: none;
+    }
+  }
+
+  .draggable {
+    cursor: move;
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+  }
+
+  .draggable:active {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba($hoverBGColor, .9);
+  }
+
+  70% {
+    box-shadow: 0 0 0 15px rgba($hoverBGColor, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba($hoverBGColor, 0);
+  }
+}

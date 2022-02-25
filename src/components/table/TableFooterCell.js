@@ -168,7 +168,7 @@ export default {
       },
       [
         ctx._t(
-          `content.${props.value}.default`,
+          `footer.${props.value}.default`,
           function () {
             const cellContent = []
 
@@ -200,7 +200,7 @@ export default {
                 props.prependBtn
                   ? [
                     ctx._t(
-                      `content.${props.value}.prepend`,
+                      `footer.${props.value}.prepend`,
                       function () {
                         return [
                           _c('img', {
@@ -233,7 +233,7 @@ export default {
               },
               [
                 ctx._t(
-                  `content.${props.value}.content`,
+                  `footer.${props.value}.content`,
                   function () {
                     if (props.isIcon)
                       return [
@@ -280,7 +280,7 @@ export default {
                 props.appendBtn
                   ? [
                     ctx._t(
-                      `content.${props.value}.append`,
+                      `footer.${props.value}.append`,
                       function () {
                         return [
                           _c('img', {

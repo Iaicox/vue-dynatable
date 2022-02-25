@@ -103,7 +103,7 @@ export default {
           draggable: true,
           clickOnHover: true,
           clickOnHoverIcon: 'delete',
-          clickOnHoverEvent: 'item-delete',
+          clickOnHoverEvent: 'eye-outline',
         },
         {
           value: 'product_count_sum',

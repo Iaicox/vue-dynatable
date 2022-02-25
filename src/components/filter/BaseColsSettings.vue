@@ -2,59 +2,61 @@
 	<div class="filter--cols-settings">
 		<h4>Отображение столбцов</h4>
 
-		<label>
-			<input
-				:checked="isEveryShown"
-				:indeterminate.prop="!isEveryShown && !isEveryHidden"
-				@click="switchAll()"
-				type="checkbox"
-			/>
-			<span class="label">Все</span>
-		</label>
+		<div class="filter--cols-settings__content">
+			<label>
+				<input
+					:checked="isEveryShown"
+					:indeterminate.prop="!isEveryShown && !isEveryHidden"
+					@click="switchAll()"
+					type="checkbox"
+				/>
+				<span class="label">Все</span>
+			</label>
 
-		<template v-for="obj in getParents">
-			<template v-if="obj.parent">
-				<div :key="obj.value" class="block--header">
-					<label>
-						<input
-							@click="switchAll(obj.value)"
-							:checked="childrenShown(obj.value)"
-							:indeterminate.prop="!childrenShown(obj.value) && !childrenHidden(obj.value)"
-							type="checkbox"
-						/>
-						<span class="label">{{ obj.value }}</span>
-					</label>
-
-					<div class="block--content">
-						<label
-							v-for="item in getChildren(obj.value)"
-							:class="{'disabled no_events': !item.editable}"
-							:key="item.value"
-						>
+			<template v-for="obj in getParents">
+				<template v-if="obj.parent">
+					<div :key="obj.value" class="block--header">
+						<label>
 							<input
-								@click="switchOne(item.value)"
-								:checked="!item.hidden"
+								@click="switchAll(obj.value)"
+								:checked="childrenShown(obj.value)"
+								:indeterminate.prop="!childrenShown(obj.value) && !childrenHidden(obj.value)"
 								type="checkbox"
 							/>
-							<span class="label">{{ item.title }}</span>
+							<span class="label">{{ obj.value }}</span>
 						</label>
+
+						<div class="block--content">
+							<label
+								v-for="item in getChildren(obj.value)"
+								:class="{'disabled no_events': !item.editable}"
+								:key="item.value"
+							>
+								<input
+									@click="switchOne(item.value)"
+									:checked="!item.hidden"
+									type="checkbox"
+								/>
+								<span class="label">{{ item.tooltip || item.title }}</span>
+							</label>
+						</div>
 					</div>
-				</div>
+				</template>
+				<template v-else>
+					<label
+						:class="{'disabled no_events': !obj.editable}"
+						:key="obj.value"
+					>
+						<input
+							@click="switchOne(obj.value)"
+							:checked="!obj.hidden"
+							type="checkbox"
+						/>
+						<span class="label">{{ obj.tooltip || obj.title }}</span>
+					</label>
+				</template>
 			</template>
-			<template v-else>
-				<label
-					:class="{'disabled no_events': !obj.editable}"
-					:key="obj.value"
-				>
-					<input
-						@click="switchOne(obj.value)"
-						:checked="!obj.hidden"
-						type="checkbox"
-					/>
-					<span class="label">{{ obj.title }}</span>
-				</label>
-			</template>
-		</template>
+		</div>
 	</div>
 </template>
 

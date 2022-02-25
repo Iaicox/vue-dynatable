@@ -64,7 +64,7 @@
             type="text"
           />
           <button
-            class="btn btn-clear"
+            class="button btn-clear"
             @click="clearSearch"
           >
             <img :src="cancelBtn" alt="Очистить">

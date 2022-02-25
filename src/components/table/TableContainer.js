@@ -749,7 +749,7 @@ export default {
                 staticClass: `float-window ${props.filterFloatPosition}`,
                 style: btnStyle,
                 class: {
-                  btn: !self.$data.$filterSettings.opened,
+                  button: !self.$data.$filterSettings.opened,
                   window: self.$data.$filterSettings.opened,
                 },
                 directives: [

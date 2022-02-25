@@ -1,7 +1,5 @@
 //  Styles
 import Icons from '@/assets/icons'
-//  Helpers
-import { toNumber, isObjEmpty } from '@/middleware/helpers'
 //  Component generators
 const filterItemElemsDict = {
   select(options) {
@@ -290,6 +288,17 @@ export default {
     },
   },
 
+  mounted() {
+    const wrapper = this.$refs.filterWrapper
+    const { top } = wrapper.getBoundingClientRect()
+    const windowHeight = document.body.clientHeight
+    wrapper.style.maxHeight = ~~(windowHeight - top - 6) + 'px'
+    document.body.style.overflowY = 'hidden'
+  },
+  beforeDestroy() {
+    document.body.style.overflowY = 'auto'
+  },
+
   render() {
     {
       const self = this
@@ -349,7 +358,10 @@ export default {
 
       return _c(
         'div',
-        { staticClass: 'filter--wrapper' },
+        {
+          staticClass: 'filter--wrapper',
+          ref: 'filterWrapper',
+        },
         [
           props.filterSettings?.colsSettings
             ? _c(

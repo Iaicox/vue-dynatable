@@ -1,3 +1,7 @@
+//  Styles
+import '@/assets/styles/index.scss'
+//  Icons
+import Icons from '@/assets/icons'
 //  Table
 import TableContainer from '@/components/table/TableContainer'
 import TableContent from '@/components/table/TableContent'
@@ -39,6 +43,7 @@ export const components = {
     BaseSwitcher,
   },
   Pagination: BaseComponentPagination,
+  Icons,
 }
 
 export default TableContainer

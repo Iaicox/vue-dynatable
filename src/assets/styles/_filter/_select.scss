@@ -12,6 +12,7 @@
     margin-bottom: 0px;
     max-height: 22px;
     max-width: 22px;
+    align-self: center;
   }
 
   .dropdown-list {
@@ -127,7 +128,7 @@
     }
   }
 
-  .btn {
+  .button {
     box-sizing: inherit;
     text-align: center;
     border: 1px solid $borderColor;

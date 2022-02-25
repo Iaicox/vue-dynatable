@@ -2,6 +2,7 @@
 
   &--wrapper,
   &--cols-settings {
+    box-sizing: border-box;
     display: flex;
     padding: 15px 10px;
 
@@ -45,6 +46,14 @@
     flex-direction: column;
     max-width: 40%;
 
+    &__content {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
     .label {
       width: 100%;
       overflow: hidden;
@@ -56,8 +65,11 @@
       padding-top: .2rem;
       margin-top: .3rem;
       margin-bottom: .3rem;
-      border-top: 1px solid $borderColor;
       border-bottom: 1px solid $borderColor;
+    }
+
+    label+.block--header {
+      border-top: 1px solid $borderColor;
     }
 
     .block--content {
@@ -93,6 +105,8 @@
     display: flex;
     flex-wrap: nowrap;
     flex-grow: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 
   &--col {

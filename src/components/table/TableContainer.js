@@ -245,14 +245,6 @@ export default {
           ...this.filterData,
         })
 
-        if (this.filterSettings.getDataFromItems !== false)
-          Object.entries(this.filterData).forEach(([type, block]) => {
-            Object.entries(block).forEach(([key, options]) => {
-              if (this.checkIfNeedFilterData({type, key, options}))
-                this.getFilterData(type, key)
-            })
-          })
-
         this.filterItems()
       },
       deep: true,
@@ -260,7 +252,15 @@ export default {
     },
 
     items: {
-      handler() {
+      handler(n, o) {
+        if (this.filterSettings.getDataFromItems !== false)
+          Object.entries(this.filterData).forEach(([type, block]) => {
+            Object.entries(block).forEach(([key, options]) => {
+              if (this.checkIfNeedFilterData({type, key, options}) || n?.length !== o?.length)
+                this.getFilterData(type, key)
+            })
+          })
+
         this.definePagination()
         this.filterItems()
         this.sortItems()

@@ -5,7 +5,7 @@ const modules = keys
 	.reduce((obj, path, i) => {
 		const key = keys[i].replace(/^\.\/(.*)\.svg$/gm, '$1').replace(/[\/\\]/gm, '--')
 		if (process.env.NODE_ENV === 'production')
-			path = '/' + key + '.svg'
+			path = '/img/' + key + '.svg'
 
 		if (key)
 			obj = {

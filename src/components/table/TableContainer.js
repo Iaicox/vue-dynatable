@@ -62,6 +62,10 @@ export default {
       type: Function | null,
       default: null,
     },
+    'force-filter-items': {
+      type: Boolean,
+      default: false,
+    },
     'sort-data': {
       type: Object,
       default: () => ({}),
@@ -226,6 +230,20 @@ export default {
       immediate: true,
     },
 
+    multipleSort: {
+      handler() {
+        this.sortOrder = {}
+        this.sortItems()
+      },
+    },
+
+    forceFilterItems: {
+      handler() {
+        this.filterItems()
+        this.sortItems()
+      },
+    },
+
     filterSettings: {
       handler() {
         this.$set(this.$data.$filterSettings, 'colsCount', +this.filterSettings?.colsSettings + (this.filterSettings?.position?.length || 1))
@@ -331,7 +349,7 @@ export default {
       this.$emit('update:table-sizes', this.tableSizes)
     },
     definePagination() {
-      const length = Math.ceil(this.items.length / this.$data.$pagination.size)
+      const length = Math.ceil(this.filteredItems.length / this.$data.$pagination.size)
       this.$set(this.$data, '$pagination', {
         ...this.$data.$pagination,
         ...this.pagination,
@@ -511,6 +529,12 @@ export default {
 
           return check
         })
+
+      this.definePagination()
+      if (this.$data.$pagination.value !== 1) {
+        this.$data.$pagination.value = 1
+        this.$emit('update:page', 1)
+      }
 
       this.sortItems()
 

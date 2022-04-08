@@ -76,6 +76,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    'wrap-line': {
+      type: Boolean,
+      default: false,
+    },
 
     loading: {
       type: Boolean,
@@ -184,6 +188,7 @@ export default {
                       'page-size': props.pageSize,
                       'expand-on-hover': props.expandOnHover,
                       'expand-on-click': props.expandOnClick,
+                      'wrap-line': props.wrapLine,
                     },
                     on: {
                       ...$listeners,

@@ -58,6 +58,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    'wrap-line': {
+      type: Boolean,
+      default: false,
+    },
     'header-fixed': {
       type: Boolean,
       default: true,
@@ -133,7 +137,8 @@ export default {
           obj.groupable = cell.groupable
           obj.sortable = cell.sortable
           obj.selected = cell.selected
-          obj.singleLine = ((cell.singleLine ?? true) && !this.selected && this.expandOnClick) || ((cell.singleLine ?? true) && !this.expandOnClick)
+          obj.singleLine = (!this.wrapLine || cell.singleLine) && ((!this.selected && this.expandOnClick) || !this.expandOnClick)
+          // obj.singleLine = ((cell.singleLine ?? true) && !this.selected && this.expandOnClick) || ((cell.singleLine ?? true) && !this.expandOnClick)
           obj.visible = cell.visible
           obj.clickOnHover = cell.clickOnHover
           obj.clickOnHoverIcon = cell.clickOnHoverIcon

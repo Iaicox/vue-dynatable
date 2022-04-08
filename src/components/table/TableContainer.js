@@ -121,6 +121,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    'wrap-line': {
+      type: Boolean,
+      default: false,
+    },
 
     loading: {
       type: Boolean,
@@ -220,10 +224,7 @@ export default {
 
     sortData: {
       handler() {
-        this.$set(this, 'sortOrder', {
-          ...this.sortOrder,
-          ...this.sortData,
-        })
+        this.$set(this, 'sortOrder', {...this.sortData})
         this.sortItems()
       },
       deep: true,
@@ -279,9 +280,14 @@ export default {
             })
           })
 
-        this.definePagination()
         this.filterItems()
         this.sortItems()
+
+        this.definePagination()
+        if (this.$data.$pagination.value > this.$data.$pagination.length && this.$data.$pagination.value !== 1) {
+          this.$data.$pagination.value = 1
+          this.$emit('update:page', 1)
+        }
       },
       deep: true,
       immediate: true,
@@ -531,10 +537,6 @@ export default {
         })
 
       this.definePagination()
-      if (this.$data.$pagination.value !== 1) {
-        this.$data.$pagination.value = 1
-        this.$emit('update:page', 1)
-      }
 
       this.sortItems()
 
@@ -678,6 +680,7 @@ export default {
 
               'expand-on-hover': props.expandOnHover,
               'expand-on-click': props.expandOnClick,
+              'wrap-line': props.wrapLine,
 
               'table-sizes': self.tableSizes,
             },

@@ -34,6 +34,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    'wrap-line': {
+      type: Boolean,
+      default: false,
+    },
     'row-id-key': {
       type: String | Array,
       default: () => []
@@ -93,8 +97,8 @@ export default {
                   class: {
                     hoverable: props.hoverable,
                     expand_on_hover: props.expandOnHover,
-                    single_line: props.expandOnClick && !CheckUnicByKeysArr(self.chosenItem, item, self.rowIdKey),
-                    wrap_line: props.expandOnClick && CheckUnicByKeysArr(self.chosenItem, item, self.rowIdKey),
+                    single_line: !props.wrapLine ? (props.expandOnClick && !CheckUnicByKeysArr(self.chosenItem, item, self.rowIdKey)) : !props.wrapLine,
+                    wrap_line: props.wrapLine ? props.wrapLine : (props.expandOnClick && CheckUnicByKeysArr(self.chosenItem, item, self.rowIdKey)),
                     active: CheckUnicByKeysArr(self.chosenItem, item, self.rowIdKey),
                   },
                   attrs: {
@@ -107,6 +111,7 @@ export default {
                     selectable: props.selectable,
                     'expand-on-hover': props.expandOnHover,
                     'expand-on-click': props.expandOnClick,
+                    'wrap-line': props.wrapLine,
                     'row-order': rowsCountable
                       ? (props.pageSize * (props.page - 1) + i + 1)
                       : 0,

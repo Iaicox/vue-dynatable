@@ -1,6 +1,6 @@
 {
   "name": "vue-dynatable",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "This package allows you to manage big data in table. You could set the settings what table would do: dragging cols, resize cols, pin cols, filter and sort data. All the cells could be replaced by named slot.",
   "author": {
     "name": "Ilia Safin",

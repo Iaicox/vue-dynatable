@@ -63,10 +63,23 @@
         </div>
       </template> -->
     </TableContainer>
+
+    <div class="icons-pack">
+      <input v-model="search" type="search">
+      <img
+        @dblclick="copy2Clipboard(key)"
+        v-for="src, key in filteredIcons"
+        :src="src"
+        :title="key"
+        :key="key"
+        :alt="key"
+      >
+    </div>
   </div>
 </template>
 
 <script>
+import Icons from '@/assets/icons'
 //  Проверка даты
 const countDate = ({item}) => +new Date(item.date_create) < new Date().setHours(0,0,0,0)
 
@@ -77,6 +90,7 @@ export default {
   },
   data() {
     return {
+      search: '',
       headerList: [
         {
           value: 'row_order',
@@ -211,6 +225,12 @@ export default {
       pageChangeNeedScroll: false,
     }
   },
+  computed: {
+    filteredIcons() {
+      const filtered = Object.entries(Icons).filter(([key]) => key.includes(this.search))
+      return Object.fromEntries(filtered)
+    },
+  },
   methods: {
     pageChangeHandler(page) {
       if (this.pageChangeNeedScroll)
@@ -226,6 +246,10 @@ export default {
 
     test(item) {
       console.log('item :>> ', item)
+    },
+    copy2Clipboard(key) {
+      if (navigator?.clipboard)
+        navigator.clipboard.writeText(key)
     },
   },
 
@@ -280,5 +304,19 @@ body {
 
 .test {
   background: hotpink;
+}
+
+.icons-pack {
+  display: flex;
+  flex-wrap: wrap;
+
+  input {
+    flex: 1 1 100%;
+    margin: 0 0 1rem;
+  }
+
+  img {
+    margin: 5px;
+  }
 }
 </style>

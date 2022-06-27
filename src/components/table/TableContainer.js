@@ -230,21 +230,6 @@ export default {
       deep: true,
       immediate: true,
     },
-
-    multipleSort: {
-      handler() {
-        this.sortOrder = {}
-        this.sortItems()
-      },
-    },
-
-    forceFilterItems: {
-      handler() {
-        this.filterItems()
-        this.sortItems()
-      },
-    },
-
     filterSettings: {
       handler() {
         this.$set(this.$data.$filterSettings, 'colsCount', +this.filterSettings?.colsSettings + (this.filterSettings?.position?.length || 1))
@@ -269,7 +254,6 @@ export default {
       deep: true,
       immediate: true,
     },
-
     items: {
       handler(n, o) {
         if (this.filterSettings.getDataFromItems !== false)
@@ -293,18 +277,6 @@ export default {
       immediate: true,
     },
 
-    loading: {
-      handler() {
-        this.$data.$loading.state = this.loading
-      },
-      immediate: true,
-    },
-    loadingText: {
-      handler() {
-        this.$data.$loading.text = this.loadingText
-      },
-      immediate: true,
-    },
     pagination: {
       handler() {
         this.definePagination()
@@ -317,6 +289,38 @@ export default {
         this.definePagination()
       },
       immediate: true,
+    },
+
+    multipleSort: {
+      handler() {
+        this.sortOrder = {}
+        this.sortItems()
+      },
+    },
+    forceFilterItems: {
+      handler() {
+        this.filterItems()
+        this.sortItems()
+      },
+    },
+
+    loading: {
+      handler() {
+        this.$data.$loading.state = this.loading
+      },
+      immediate: true,
+    },
+    loadingText: {
+      handler() {
+        this.$data.$loading.text = this.loadingText
+      },
+      immediate: true,
+    },
+
+    wrapLine: {
+      handler() {
+        this.reCalcRowsCount()
+      },
     },
   },
   computed: {
@@ -808,33 +812,34 @@ export default {
           null,
           props,
         ),
-        self._t(
-          `content.loader`,
-          [
-            self.$data.$loading.state ?? self.$data.$loading.text ?
-            _c(
-              `div`,
-              {
-                staticClass: 'loader--wrapper',
-              },
-              [
-                _c(
-                  `p`,
-                  {
-                    staticClass: 'loader--content',
-                  },
-                  self.loadingTextArr.map(letter => _c(
-                    `span`,
-                    {},
-                    [self._v(self._s(letter))]
-                  )),
-                )
-              ],
-            ) : self._v(self._s(''))
-          ],
-          null,
-          self.$data.$loading,
-        ),
+        self.$data.$loading.state
+          ? self._t(
+            `content.loader`,
+            [
+              _c(
+                `div`,
+                {
+                  staticClass: 'loader--wrapper',
+                },
+                [
+                  _c(
+                    `p`,
+                    {
+                      staticClass: 'loader--content',
+                    },
+                    self.loadingTextArr.map(letter => _c(
+                      `span`,
+                      {},
+                      [self._v(self._s(letter))]
+                    )),
+                  )
+                ],
+              )
+            ],
+            null,
+            self.$data.$loading,
+          )
+          : self._v(self._s('')),
         self._t(
           `table.append`,
           [],

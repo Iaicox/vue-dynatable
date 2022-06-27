@@ -421,12 +421,73 @@
     cursor: grab;
     cursor: -moz-grab;
     cursor: -webkit-grab;
+.db--icon {
+  @extend .draggable;
+}
   }
 
-  .draggable:active {
+  .dragging {
+    opacity: 0.5;
     cursor: grabbing;
     cursor: -moz-grabbing;
     cursor: -webkit-grabbing;
+  }
+}
+
+.drag-mark {
+  position: absolute;
+  top: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 0;
+  width: 30px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  transition: .3s;
+
+  th:hover & {
+    height: 10px;
+  }
+}
+
+.resize-mark {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  transform: translateX(-100%);
+  height: 100%;
+  width: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  transition: .3s;
+  cursor: col-resize;
+
+  th:hover & {
+    width: 4px;
+  }
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: $tableTextColor;
+  }
+
+  &::before {
+    left: 0;
+  }
+
+  &::after {
+    right: 1px;
   }
 }
 

@@ -32,7 +32,7 @@
 
 <script>
 export default {
-  name: 'Pagination',
+  name: 'BaseComponentPagination',
   props: {
     length: {
       type: Number | String,

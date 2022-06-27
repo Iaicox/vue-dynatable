@@ -2,6 +2,8 @@ import Icons from '@/assets/icons'
 //  Helpers
 import { CollectClasses } from '@/middleware/helpers'
 
+let clickedEl = null
+
 export default {
   name: 'TableHeaderCell',
   functional: true,
@@ -125,23 +127,34 @@ export default {
         : ''
 
     function dragStart(e) {
-      if (!props.draggable)
-        e.preventDefault()
+      if (!props.draggable || !(clickedEl && clickedEl.closest('.drag-mark')))
+        return e.preventDefault()
 
-      const parent = !props.value && !!props.title
-      e.dataTransfer.effectAllowed = 'move'
-      e.dataTransfer.setData('valueFrom', props.value || props.title)
-      e.dataTransfer.setData('valueFromIsParent', parent)
+      e.target.classList.add('dragging')
+      listeners['th-dragstart']({
+        event: e,
+        target: e.target,
+        valueFrom: props.value || props.title,
+        valueFromIsParent: !props.value && !!props.title
+      })
     }
     function dragEnd(e) {
-      e.dataTransfer.clearData()
-    }
-    function drop(e) {
-      const parent = !props.value && !!props.title
-      listeners['drop-to-header']({
+      e.target.classList.remove('dragging')
+      listeners['th-dragend']({
         event: e,
+        target: e.target,
         valueTo: props.value || props.title,
-        valueToIsParent: parent,
+        valueToIsParent: !props.value && !!props.title
+      })
+    }
+    function dragOver(e) {
+      e.preventDefault()
+
+      listeners?.['th-dragover']({
+        event: e,
+        target: e.target,
+        valueTo: props.value || props.title,
+        valueToIsParent: !props.value && !!props.title
       })
     }
     function checkCursor(event) {
@@ -154,8 +167,20 @@ export default {
         isParent: parent,
       })
     }
-    function resizeStart(event) {
+    /**
+     * @name onMouseDown
+     * @param {MouseEvent} event
+     * @description Check if handler clicked and resize started
+     */
+    function onMouseDown(event) {
       listeners['cell-resize'](event)
+
+      clickedEl = event.target
+      document.addEventListener('mouseup', () => {
+        setTimeout(() => {
+          clickedEl = null
+        })
+      }, {once: true})
     }
 
     return _c(
@@ -166,7 +191,6 @@ export default {
           col_order: props.value === 'col_order',
           col_actions: props.value === 'col_actions',
           parent: props.colspan > 1,
-          draggable: props.draggable,
           ...CollectClasses(props.classHeader, props),
         },
         attrs: {
@@ -178,13 +202,17 @@ export default {
         on: {
           dragstart: dragStart,
           dragend: dragEnd,
-          drop,
+          dragover: dragOver,
           mousemove: checkCursor,
-          mousedown: resizeStart,
-          contextmenu: e => listeners?.['header-context']({
+          mousedown: onMouseDown,
+          click: e => listeners?.['header-click']?.({
             event: e,
             cell: props,
-          })
+          }),
+          contextmenu: e => listeners?.['header-context']?.({
+            event: e,
+            cell: props,
+          }),
         },
         directives: [
           {
@@ -202,40 +230,6 @@ export default {
           `header.${props.value}.default`,
           function () {
             const children = []
-            if (props.prependBtn)
-              children.push(_c(
-                'div',
-                {
-                  class: {
-                    hoverable_unit: props.prependBtn,
-                  },
-                  staticClass: 'dt--cell__prepend',
-                },
-                (SortIconAge == 'prepend' ? props.sortable : props.prependBtn)
-                  ? [
-                    ctx._t(
-                      `header.${props.value}.prepend`,
-                      function () {
-                        return [
-                          _c('img', {
-                            attrs: {
-                              src: Icons?.[props.prependBtnIcon] || Icons.pin,
-                              alt: props.prependBtnIcon || `pin-${props.value}`,
-                            },
-                            on: {
-                              click: () => listeners?.[props.prependBtnEvent]?.(props)
-                            },
-                          }),
-                        ]
-                      },
-                      null,
-                      props
-                    ),
-                  ]
-                  : []
-                ,
-                2
-              ))
 
             if (props.isIcon)
               children.push(_c(
@@ -291,6 +285,43 @@ export default {
                   ),
                 ],
                 2
+              ))
+
+            if (props.draggable)
+              children.push(_c(
+                'div',
+                {
+                  staticClass: 'drag-mark draggable',
+                },
+                [
+                  ctx._t(
+                    `header.${props.value}.drag_mark`,
+                    function () {
+                      return [
+                        _c('span', {
+                          staticClass: 'db--icon',
+                          style: `--db--icon: url(${Icons['drag-horizontal']})`,
+                          attrs: {
+                            alt: 'drag-horizontal',
+                          },
+                        }),
+                      ]
+                    },
+                    null,
+                    props
+                  ),
+                ]
+                ,
+                2
+              ))
+
+            if (props.resizable)
+              children.push(_c(
+                'div',
+                {
+                  staticClass: 'resize-mark',
+                },
+                [],
               ))
 
             if (props.appendBtn)

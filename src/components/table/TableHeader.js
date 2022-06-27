@@ -1,6 +1,17 @@
 //  Helpers
 import { FixChildrenOrder } from '@/middleware/helpers'
 
+const getNextElement = (cursorPosition, currentElement) => {
+  const currentElementCoord = currentElement.getBoundingClientRect()
+  const currentElementCenter = currentElementCoord.x + currentElementCoord.width / 2
+
+  const nextElement = (cursorPosition < currentElementCenter) ?
+    currentElement :
+    currentElement.nextElementSibling
+
+  return nextElement
+}
+
 export default {
   name: 'TableHeader',
   components: {
@@ -45,6 +56,7 @@ export default {
         precents: {},
         target: null,
       },
+      dragging: null,
     }
   },
   computed: {
@@ -62,11 +74,39 @@ export default {
     dragover(e) {
       e.preventDefault()
     },
-    drop({event, valueTo, valueToIsParent}) {
-      event.dataTransfer.dropEffect = 'move'
+    dragstartTH(data) {
+      this.dragging = data
+    },
+    dragendTH() {
+      this.dragging = null
+    },
+    dragoverTH(data) {
+      const currentElement = data.target.closest('th')
+      if (!currentElement)
+        return
+
+      const isMoveable =
+        this.dragging.target !== currentElement &&
+        currentElement.classList.contains(`dt--cell`) &&
+        currentElement.querySelector('.draggable')
+
+      if (!isMoveable)
+        return
+
+      const nextElement = getNextElement(data.event.clientX, currentElement)
+
+      if (
+        nextElement &&
+        this.dragging.target === nextElement.previousElementSibling ||
+        this.dragging.target === nextElement
+      )
+        return
+
       const headers = [...this.headers]
-      const valueFromIsParent = JSON.parse(event.dataTransfer.getData('valueFromIsParent'))
-      const valueFrom = event.dataTransfer.getData('valueFrom')
+      const valueFromIsParent = this.dragging.valueFromIsParent
+      const valueToIsParent = data.valueToIsParent
+      const valueFrom = this.dragging.valueFrom
+      const valueTo = data.valueTo
       const keys = {
         from: valueFromIsParent ? 'parent' : 'value',
         to: valueToIsParent ? 'parent' : 'value',
@@ -286,7 +326,9 @@ export default {
                         ...$listeners,
                         'update:table-sizes': self.setSizes,
 
-                        'drop-to-header': self.drop,
+                        'th-dragstart': self.dragstartTH,
+                        'th-dragover': self.dragoverTH,
+                        'th-dragend': self.dragendTH,
                         'cell-resize': self.startResize,
                         'check-resize': self.checkCursor,
                         'sort-items': cell => self.$emit('sort-items', cell),
@@ -310,7 +352,9 @@ export default {
                         ...$listeners,
                         'update:table-sizes': self.setSizes,
 
-                        'drop-to-header': self.drop,
+                        'th-dragstart': self.dragstartTH,
+                        'th-dragover': self.dragoverTH,
+                        'th-dragend': self.dragendTH,
                         'cell-resize': self.startResize,
                         'check-resize': self.checkCursor,
                         'sort-items': cell => self.$emit('sort-items', cell),
@@ -336,7 +380,9 @@ export default {
                       ...$listeners,
                       'update:table-sizes': self.setSizes,
 
-                      'drop-to-header': self.drop,
+                      'th-dragstart': self.dragstartTH,
+                      'th-dragover': self.dragoverTH,
+                      'th-dragend': self.dragendTH,
                       'cell-resize': self.startResize,
                       'check-resize': self.checkCursor,
                       'sort-items': cell => self.$emit('sort-items', cell),
